@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Browselytics Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body>
+    <div class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Browselytics</p>
+        <h1>Activity Dashboard</h1>
+        <p class="muted">Analyze how you spend time across sites and tabs.</p>
+      </div>
+      <div class="hero-actions">
+        <button id="exportCsv">Export CSV</button>
+        <button id="exportJson" class="secondary">Export JSON</button>
+      </div>
+    </header>
+
+    <section class="filters">
+      <div>
+        <label for="startDate">Start</label>
+        <input type="date" id="startDate" />
+      </div>
+      <div>
+        <label for="endDate">End</label>
+        <input type="date" id="endDate" />
+      </div>
+      <div class="filters-actions">
+        <button id="applyFilters">Apply</button>
+        <button id="resetFilters" class="secondary">Today</button>
+      </div>
+    </section>
+
+    <div id="swWarning" class="warning hidden">
+      Background worker not reachable. Reload the extension in chrome://extensions and reopen this page.
+    </div>
+
+    <section class="cards">
+      <div class="card">
+        <p class="label">Active</p>
+        <p id="summaryActive" class="metric">--:--:--</p>
+      </div>
+      <div class="card">
+        <p class="label">Open</p>
+        <p id="summaryOpen" class="metric">--:--:--</p>
+      </div>
+      <div class="card">
+        <p class="label">Background</p>
+        <p id="summaryBackground" class="metric">--:--:--</p>
+      </div>
+      <div class="card">
+        <p class="label">Interaction</p>
+        <p id="summaryInteraction" class="metric">--:--:--</p>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Top domains</h2>
+        </div>
+        <canvas id="domainChart" height="220"></canvas>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Time distribution</h2>
+        </div>
+        <canvas id="distributionChart" height="220"></canvas>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Sessions</h2>
+      </div>
+      <div class="table-wrapper">
+        <table id="sessionsTable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Domain</th>
+              <th>Active</th>
+              <th>Open</th>
+              <th>Background</th>
+              <th>Interaction</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Settings</h2>
+      </div>
+      <div class="settings-grid">
+        <label>
+          <span>Ignored domains (comma separated)</span>
+          <textarea id="ignoredSites" rows="2" placeholder="example.com, socials.com"></textarea>
+        </label>
+        <label class="inline">
+          <input type="checkbox" id="trackingEnabled" />
+          <span>Enable tracking</span>
+        </label>
+        <span class="muted small helper">
+          When off, tracking stops and no new time is recorded.
+        </span>
+        <label class="inline">
+          <input type="checkbox" id="interactionTracking" />
+          <span>Enable interaction tracking</span>
+        </label>
+        <span class="muted small helper">
+          If off, only visibility/activation is used; interaction time stays zero.
+        </span>
+        <div class="hours">
+          <label>
+            <span>Workday start</span>
+            <input type="time" id="hoursStart" />
+          </label>
+          <label>
+            <span>Workday end</span>
+            <input type="time" id="hoursEnd" />
+          </label>
+        </div>
+        <div class="settings-actions">
+          <button id="saveSettings">Save settings</button>
+          <span class="muted small">Click save to apply any settings changes.</span>
+          <span id="saveStatus" class="muted small"></span>
+        </div>
+        <h3 class="subhead">Clear</h3>
+        <div class="delete-range">
+          <div class="range-fields">
+            <label>
+              <span>Delete from (date/time)</span>
+              <div class="picker-group">
+                <input type="datetime-local" id="deleteStart" readonly />
+                <button type="button" class="picker-trigger" data-target="deleteStart">Pick</button>
+              </div>
+            </label>
+            <label>
+              <span>Delete to (date/time)</span>
+              <div class="picker-group">
+                <input type="datetime-local" id="deleteEnd" readonly />
+                <button type="button" class="picker-trigger" data-target="deleteEnd">Pick</button>
+              </div>
+            </label>
+          </div>
+          <div class="range-actions">
+            <button id="deleteRange" class="danger">Delete range</button>
+            <button id="clearToday" class="secondary">Clear today</button>
+          </div>
+          <p class="muted small">
+            Deletes matching session rows locally. This cannot be undone.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <script src="chart.umd.min.js"></script>
+    <script type="module" src="dashboard.js"></script>
+    </div>
+  </body>
+</html>
+

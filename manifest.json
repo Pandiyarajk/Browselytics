@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "Browselytics",
+  "description": "Track your browser activity with detailed tab analytics.",
+  "version": "1.0.0",
+  "permissions": [
+    "tabs",
+    "storage",
+    "windows",
+    "idle"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "src/background/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "/assets/icon16.png",
+      "48": "/assets/icon48.png",
+      "128": "/assets/icon128.png"
+    }
+  },
+  "options_page": "src/dashboard/index.html",
+  "icons": {
+    "16": "/assets/icon16.png",
+    "48": "/assets/icon48.png",
+    "128": "/assets/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "src/content/interaction.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
+
