@@ -126,14 +126,25 @@ const renderTable = (sessions) => {
 
   sessions.forEach((s) => {
     const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${s.date}</td>
-      <td>${s.domain}</td>
-      <td>${formatDuration(s.activeTime)}</td>
-      <td>${formatDuration(s.openTime)}</td>
-      <td>${formatDuration(s.backgroundTime)}</td>
-      <td>${formatDuration(s.interactionTime)}</td>
-    `;
+    const dateCell = document.createElement('td');
+    dateCell.textContent = s.date || '';
+    const domainCell = document.createElement('td');
+    domainCell.textContent = s.domain || '';
+    const activeCell = document.createElement('td');
+    activeCell.textContent = formatDuration(s.activeTime);
+    const openCell = document.createElement('td');
+    openCell.textContent = formatDuration(s.openTime);
+    const backgroundCell = document.createElement('td');
+    backgroundCell.textContent = formatDuration(s.backgroundTime);
+    const interactionCell = document.createElement('td');
+    interactionCell.textContent = formatDuration(s.interactionTime);
+
+    tr.appendChild(dateCell);
+    tr.appendChild(domainCell);
+    tr.appendChild(activeCell);
+    tr.appendChild(openCell);
+    tr.appendChild(backgroundCell);
+    tr.appendChild(interactionCell);
     tbody.appendChild(tr);
   });
 };

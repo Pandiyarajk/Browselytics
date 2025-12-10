@@ -1,11 +1,10 @@
 {
   "manifest_version": 3,
   "name": "Browselytics",
-  "description": "Track your browser activity with detailed tab analytics.",
-  "version": "1.0.0",
+  "description": "Monitor and analyze your browsing habits with detailed time tracking, charts, and privacy-focused local storage.",
+  "version": "1.0.1",
   "permissions": [
     "tabs",
-    "storage",
     "windows",
     "idle"
   ],
