@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Browselytics",
   "description": "Monitor and analyze your browsing habits with detailed time tracking, charts, and privacy-focused local storage.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "permissions": [
     "tabs",
     "windows",
