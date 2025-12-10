@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.0.1
+## v1.0.2
 - Fixed Chrome Web Store rejection: removed unused "storage" permission
 
 ## v1.0.0
